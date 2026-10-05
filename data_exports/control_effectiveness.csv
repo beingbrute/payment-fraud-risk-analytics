@@ -1,0 +1,6 @@
+control_name,flagged,frauds_caught,precision_pct,recall_pct
+C2_account_drained,1188074,8012,0.67,97.55
+C4_transfer_then_cashout,6306,4078,64.67,49.65
+C3_dest_no_balance_movement,5776,4070,70.46,49.56
+C1_high_value_transfer,409110,2740,0.67,33.36
+C5_orig_balance_mismatch,2488652,45,0,0.55

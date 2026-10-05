@@ -1,0 +1,3 @@
+control_name,flagged,frauds_caught,precision_pct
+C1_high_value_transfer,409110,2740,0.6697465229400406
+C2_account_drained,1188074,8012,0.6743687682753768

@@ -1,0 +1,5 @@
+check_name,exceptions,pct_of_txns,of_which_fraud,fraud_share_pct
+DQ3_orig_balance_mismatch,3601595,56.606,45,0
+DQ5_amount_exceeds_balance,3601544,56.605,29,0
+DQ4_dest_balance_mismatch,269723,4.239,4236,1.57
+DQ2_non_positive_amount,16,0,16,100
