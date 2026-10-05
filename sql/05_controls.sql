@@ -35,14 +35,14 @@ WHERE type IN ('TRANSFER', 'CASH_OUT')
   AND NOT dest_is_merchant AND amount > 0 AND dest_zero_both = 1
 
 UNION
--- C4 Transfer followed by a cash-out of the same amount from the receiving account
---    within 1 step (the mule pattern). This works on the hashed IDs because hashing
---    is deterministic, so the same account always hashes the same way.
+-- C4 Transfer followed by a cash-out of the same amount within 1 step.
+--    There is no account link: matching on orig_account = dest_account returned 0 matches
+--    in PaySim (see docs/controls_alteryx_notes.md), so same-amount timing is used instead.
+--    Some matches are coincidental, since PaySim caps transfers at 10,000,000.
 SELECT t1.txn_id, 'C4_transfer_then_cashout'
 FROM gold_transactions t1
 JOIN gold_transactions t2
-  ON  t2.orig_account = t1.dest_account
-  AND t2.type = 'CASH_OUT'
+  ON  t2.type = 'CASH_OUT'
   AND t2.step BETWEEN t1.step AND t1.step + 1
   AND t2.amount = t1.amount
 WHERE t1.type = 'TRANSFER'

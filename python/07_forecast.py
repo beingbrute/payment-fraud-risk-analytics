@@ -1,7 +1,7 @@
 """
 07_forecast.py | Payment Transaction Controls & Fraud Risk Analytics
 
-Forecasts hourly transaction volume for the next 24 steps (1 step = 1 hour).
+Forecasts hourly fraud count (or transaction volume) for the next 24 steps (1 step = 1 hour).
 
 Usage:  python 07_forecast.py --csv gold_hourly_summary.csv            (Databricks export)
     or: python 07_forecast.py --csv paysim.csv --raw                   (raw PaySim file)
@@ -69,7 +69,7 @@ def main():
     # 1) Back-test on the last 24 hours
     train, test = y.iloc[:-H], y.iloc[-H:]
     naive = y.shift(H).loc[test.index]
-    pred = fit_predict(train, test.index)
+    pred = np.round(fit_predict(train, test.index), 1)
     mae_naive = mean_absolute_error(test, naive)
     mae_model = mean_absolute_error(test, pred)
     print(f"Back-test MAE, seasonal naive: {mae_naive:,.2f}")
@@ -87,7 +87,7 @@ def main():
                         f"forecast_{args.target}": np.round(fc, 1),
                         "method": "regression" if use_model else "seasonal_naive"})
     back = pd.DataFrame({"step": test.index, "actual": test.to_numpy(),
-                         "seasonal_naive": naive.to_numpy(), "regression": np.round(pred, 1)})
+                         "seasonal_naive": naive.to_numpy(), "regression": pred})
     out.to_csv(args.out, index=False)
     back.to_csv("forecast_backtest.csv", index=False)
     print(f"\nForecast written to {args.out}, back-test to forecast_backtest.csv")
