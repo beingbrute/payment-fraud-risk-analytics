@@ -1,8 +1,9 @@
 # Power BI Dashboard Notes
 
 ## Power BI Page 1: Data Assurance
-- Total rows: 2,770,409 (transfer/cash-out subset) | Total exceptions flagged: ~7M (exceeds
-  row count because one transaction can fail multiple checks - UNION ALL)
+- Checks ran on all 6,362,620 transactions (the dashboard also shows the 2,770,409
+  TRANSFER/CASH_OUT subset as a separate card) | Total exceptions flagged: ~7.47M (exceeds
+  the row count because one transaction can fail multiple checks - UNION ALL)
 - DQ3 (3.60M exceptions) and DQ5 (3.60M exceptions): ~0% fraud share -> confirms these are
   PaySim data-generation artifacts, not real fraud signals (matches the earlier finding)
 - DQ4 (0.27M exceptions): 1.57% fraud share vs 0.13% overall baseline -> ~12x baseline,

@@ -9,8 +9,9 @@ Should the client rely on rule-based controls, a machine-learning model, or both
 catch payment fraud?
 
 ## 2. What the project showed
-I tested five SQL rule-based controls against 2,770,409 TRANSFER/CASH_OUT transactions,
-8,213 of them actual fraud. Results varied a lot. C3 (destination balance check) and C4
+I tested five SQL rule-based controls against the full PaySim dataset of 6,362,620
+transactions, 8,213 of them actual fraud (0.13%). The controls only look at TRANSFER and
+CASH_OUT rows (2,770,409 of the total), which is where all the fraud is. Results varied a lot. C3 (destination balance check) and C4
 (transfer-then-cashout) were the two solid ones — each caught about half the fraud at
 65-70% precision on the full dataset. The rest were weak. C2 (account drained) caught 97.55% of fraud, but
 precision was 0.67%: basically 99 out of 100 alerts it raises are false alarms. C1
